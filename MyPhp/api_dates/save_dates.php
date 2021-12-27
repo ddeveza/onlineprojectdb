@@ -11,18 +11,23 @@ include ('../../config/config.php');
 $data = json_decode(file_get_contents("php://input"), TRUE);
 $id = $data['id'];
 $rpDates = $data['dates']['rpDate']['completedDate'];
+
+
 $bin1Date = $data['dates']['bin1Date']['completedDate'];
+
 $qualDate = $data['dates']['qualDate']['completedDate'];
 $cabDate = $data['dates']['cabDate']['completedDate'];
-$ecoDate = $data['dates']['ecoDate']['completedDate'];
+$ecoSubmittedDate = $data['dates']['ecoDateSubmit']['completedDate'];
+$ecoReleasedDate = $data['dates']['ecoDateReleased']['completedDate'];
 
 $update ="UPDATE projects 
     SET 
-     Development_Start_Date='$rpDates',
-     PRP_Date= '$bin1Date', 
-     Qualification_Start_Date='$qualDate',
+     TestItemReceived_Date='$rpDates',
+     Bin1_Date= '$bin1Date', 
+     QualCompletion_Date='$qualDate',
      CAB_Approved_Date='$cabDate', 
-     ECO_Released = '$ecoDate'
+     ECO_Released = '$ecoReleasedDate',
+     ECO_Submitted = '$ecoSubmittedDate'
 
      WHERE Project_ID='$id'";
 

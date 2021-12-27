@@ -18,11 +18,12 @@ $result = mysqli_query($con,$fetch);
 if(mysqli_num_rows($result)>0){
 	$row =mysqli_fetch_array($result);
 
-    $rpDate = $row['Development_Start_Date'] != "0000-00-00" ? $row['Development_Start_Date'] : null;
-    $bin1Date = $row['PRP_Date'] != "0000-00-00" ? $row['PRP_Date'] : null;
-    $qualDate = $row['Qualification_Start_Date'] != "0000-00-00" ? $row['Qualification_Start_Date'] : null;
+    $rpDate = $row['TestItemReceived_Date'] != "" ? $row['TestItemReceived_Date'] : null;
+    $bin1Date = $row['Bin1_Date'] != "" ? $row['Bin1_Date'] : null; 
+    $qualDate = $row['QualCompletion_Date'] != "" ? $row['QualCompletion_Date'] : null;
     $cabDate = $row['CAB_Approved_Date']  != "0000-00-00" ? $row['CAB_Approved_Date']  : null;
-    $ecoDate = $row['ECO_Released']  != "0000-00-00" ? $row['ECO_Released']  : null;
+    $ecoSubmittedDate = $row['ECO_Submitted']  != "0000-00-00" ? $row['ECO_Submitted']  : null;
+    $ecoReleaseDate = $row['ECO_Released']  != "0000-00-00" ? $row['ECO_Released']  : null;
 	
     if($row){
         $data = array(
@@ -30,8 +31,8 @@ if(mysqli_num_rows($result)>0){
             'bin1Date'=>$bin1Date ,
             'qualDate'=>$qualDate ,
             'cabDate'=>$cabDate ,
-            'ecoDate'=>$ecoDate
-
+            'ecoSubmittedDate'=>$ecoSubmittedDate,
+            'ecoReleasedDate'=>$ecoReleaseDate
         );
 
         echo json_encode($data);

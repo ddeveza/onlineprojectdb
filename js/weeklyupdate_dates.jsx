@@ -25,19 +25,14 @@ const Dennis = () => {
   const [min, setMin] = React.useState(0);
 
   //Dates States
-  const [received, setReceived] = React.useState({ isReceived: false, receivedDate: new Date() });
-  const [bin1Completed, setBin1Completed] = React.useState({ isDone: false, dateBin1: new Date() });
-  const [qual, setQual] = React.useState({ isDone: false, dateQual: new Date() });
-  const [cab, setCab] = React.useState({ isApproved: false, dateApproved: new Date() });
-  const [release, setRelease] = React.useState({ isRelease: false, dateRelease: new Date() });
-
   const [projectDates, setProjectDates] = React.useState({
     incoming: { toggleProgress: false, completedDate: "" },
     rpDate: { toggleProgress: false, completedDate: "" },
     bin1Date: { toggleProgress: false, completedDate: "" },
     qualDate: { toggleProgress: false, completedDate: "" },
     cabDate: { toggleProgress: false, completedDate: "" },
-    ecoDate: { toggleProgress: false, completedDate: "" },
+    ecoDateSubmit: { toggleProgress: false, completedDate: "" },
+    ecoDateReleased: { toggleProgress: false, completedDate: "" },
   });
 
   //End of Date States
@@ -90,9 +85,17 @@ const Dennis = () => {
         break;
       }
       case "5": {
+        setProjectStatus("ECO Submitted");
+        setProjectDates((prev) => {
+          return { ...prev, ecoDateSubmit: { title: "ECO Submitted Date", toggleProgress: true } };
+        });
+        setMin(e.target.value);
+        break;
+      }
+      case "6": {
         setProjectStatus("ECO Released");
         setProjectDates((prev) => {
-          return { ...prev, ecoDate: { title: "ECO Released Date", toggleProgress: true } };
+          return { ...prev, ecoDateReleased: { title: "ECO Released Date", toggleProgress: true } };
         });
         setMin(e.target.value);
         break;
@@ -127,11 +130,12 @@ const Dennis = () => {
         setProjectDates((prev) => {
           return {
             ...prev,
-            rpDate: { ...prev.rpDate, toggleProgress: res.data.rpDate !== null ? true : false, completedDate: res.data.rpDate },
+            rpDate: { toggleProgress: res.data.rpDate !== null ? true : false, completedDate: res.data.rpDate },
             bin1Date: { toggleProgress: res.data.bin1Date !== null ? true : false, completedDate: res.data.bin1Date },
             qualDate: { toggleProgress: res.data.qualDate !== null ? true : false, completedDate: res.data.qualDate },
             cabDate: { toggleProgress: res.data.cabDate !== null ? true : false, completedDate: res.data.cabDate },
-            ecoDate: { toggleProgress: res.data.ecoDate !== null ? true : false, completedDate: res.data.ecoDate },
+            ecoDateSubmit: { toggleProgress: res.data.ecoSubmittedDate !== null ? true : false, completedDate: res.data.ecoSubmittedDate },
+            ecoDateReleased: { toggleProgress: res.data.ecoReleasedDate !== null ? true : false, completedDate: res.data.ecoReleasedDate },
           };
         });
       });
@@ -145,7 +149,8 @@ const Dennis = () => {
           bin1Date: { toggleProgress: false, completedDate: "" },
           qualDate: { toggleProgress: false, completedDate: "" },
           cabDate: { toggleProgress: false, completedDate: "" },
-          ecoDate: { toggleProgress: false, completedDate: "" },
+          ecoDateSubmit: { toggleProgress: false, completedDate: "" },
+          ecoDateReleased: { toggleProgress: false, completedDate: "" },
         };
       });
     };
@@ -191,9 +196,15 @@ const Dennis = () => {
         });
         break;
       }
-      case "ecoDate": {
+      case "ecoSubmittedDate": {
         setProjectDates((prev) => {
-          return { ...prev, ecoDate: { toggleProgress: true, completedDate: date } };
+          return { ...prev, ecoDateSubmit: { toggleProgress: true, completedDate: date } };
+        });
+        break;
+      }
+      case "ecoReleasedDate": {
+        setProjectDates((prev) => {
+          return { ...prev, ecoDateReleased: { toggleProgress: true, completedDate: date } };
         });
         break;
       }
@@ -201,7 +212,7 @@ const Dennis = () => {
   };
   return (
     <div style={{ margin: "auto", padding: "0 20px 0 20px" }}>
-      <input type="range" list="tickmarks" min={0} max={5} step={1} value={min} onChange={(e) => handleChange(e)} style={{ cursor: "pointer" }} />
+      <input type="range" list="tickmarks" min={0} max={6} step={1} value={min} onChange={(e) => handleChange(e)} style={{ cursor: "pointer" }} />
       <datalist id="tickmarks">
         <option value="0" />
         <option value="1" />
@@ -209,14 +220,16 @@ const Dennis = () => {
         <option value="3" />
         <option value="4" />
         <option value="5" />
+        <option value="6" />
       </datalist>
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
-        <h6>Incoming</h6>
-        <h6>Received</h6>
-        <h6>Bin1</h6>
-        <h6>Qual</h6>
-        <h6>Cab</h6>
-        <h6>ECO</h6>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", textAlign: "center" }}>
+        <div style={{ width: "60px" }}>Incoming</div>
+        <div style={{ width: "60px", alignItems: "end" }}>Test Items Received</div>
+        <div style={{ width: "60px" }}>Bin1</div>
+        <div style={{ width: "60px" }}>Qual</div>
+        <div style={{ width: "60px" }}>Cab Date</div>
+        <div style={{ width: "60px" }}>ECO Submitted</div>
+        <div style={{ width: "60px" }}>ECO Released</div>
       </div>
       <div style={dateStyle}>
         <h3>Dates:</h3>
@@ -224,7 +237,8 @@ const Dennis = () => {
         <WeeklyDates title={"Bin1 Completed"} toggle={projectDates.bin1Date.toggleProgress} divStyle={divStyle} statusDateName="bin1Date" statusDate={`${projectDates.bin1Date.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
         <WeeklyDates title={"Qualification Date"} toggle={projectDates.qualDate.toggleProgress} divStyle={divStyle} statusDateName="qualDate" statusDate={`${projectDates.qualDate.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
         <WeeklyDates title={"Cab Approved Date"} toggle={projectDates.cabDate.toggleProgress} divStyle={divStyle} statusDateName="cabDate" statusDate={`${projectDates.cabDate.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
-        <WeeklyDates title={"Eco Released Date"} toggle={projectDates.ecoDate.toggleProgress} divStyle={divStyle} statusDateName="ecoDate" statusDate={`${projectDates.ecoDate.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
+        <WeeklyDates title={"ECO Submitted Date"} toggle={projectDates.ecoDateSubmit.toggleProgress} divStyle={divStyle} statusDateName="ecoSubmittedDate" statusDate={`${projectDates.ecoDateSubmit.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
+        <WeeklyDates title={"ECO Released Date"} toggle={projectDates.ecoDateReleased.toggleProgress} divStyle={divStyle} statusDateName="ecoReleasedDate" statusDate={`${projectDates.ecoDateReleased.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
       </div>
     </div>
   );
