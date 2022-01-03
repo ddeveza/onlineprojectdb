@@ -20,7 +20,7 @@ const WeeklyDates = (props) => {
   );
 };
 
-const Dennis = () => {
+const ProjectDates = () => {
   const [projectStatus, setProjectStatus] = React.useState("Incoming...");
   const [min, setMin] = React.useState(0);
 
@@ -244,4 +244,4 @@ const Dennis = () => {
   );
 };
 
-ReactDOM.render(<Dennis />, document.getElementById("root"));
+ReactDOM.render(<ProjectDates />, document.getElementById("root"));

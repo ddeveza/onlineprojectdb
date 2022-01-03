@@ -73,36 +73,47 @@ else {
 
 
 
-?>	
-	
-	
-	
-	
-<div id="updateproj">	
-	
-	<input type="hidden" class="uniqueid" id="<?php echo $unique;?>"></input>
-	
-	<label><b>Project Name : </b></label><input type="text" id="projectnameedit" class="form-control" value="<?php echo $projectName;?>" ></input> <br>
-					<label><b>Business Case : </b><br>
-					<textarea class="ckeditor"name="BusinessCase1" style="resize: none; width:500px; height:200px; border:solid 1px orange;"><?php echo 	$BusinessCase;?></textarea><br>
-				<br>
-				<br>
-				<table class="table table-striped" >
-					<thead><th><tr><center>Project Details</center><tr></th></thead>
-					<tr><td><label><b>Release Method</b></label></td>
-					<td><select  id="ReleaseMethodedit"  name="ReleaseMethodedit">  
-					<option value="releasemethodempty" disabled >Selected Release Method</option>
-					<option value="RapidRelease" <?php if($releaseMethod1=='RapidRelease') echo 'selected';?>>Rapid Release</option>
-					<option value="FullPartRelease" <?php if($releaseMethod1=='FullPartRelease') echo 'selected';?>>Full Part Release</option>
-					<!-- <option value="MQUAL"  <?php if($releaseMethod1=='MQUAL') echo 'selected';?>>MQUAL</option>	 -->
-					<option value="N/A" <?php if($releaseMethod1=='N/A') echo 'selected';?>>Not Applicable</option>	
+?>
 
-					</select></td>
-						
-					<td><label><b>Project Type</b></label></td>
-					
-					<?php
-						$sql = "Select Project_Type FROM Projecttype";
+
+
+
+<div id="updateproj">
+
+    <input type="hidden" class="uniqueid" id="<?php echo $unique;?>"></input>
+
+    <label><b>Project Name : </b></label><input type="text" id="projectnameedit" class="form-control"
+        value="<?php echo $projectName;?>"></input> <br>
+    <label><b>Business Case : </b><br>
+        <textarea class="ckeditor" name="BusinessCase1"
+            style="resize: none; width:500px; height:200px; border:solid 1px orange;"><?php echo 	$BusinessCase;?></textarea><br>
+        <br>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <th>
+                    <tr>
+                        <center>Project Details</center>
+                    <tr>
+                </th>
+            </thead>
+            <tr>
+                <td><label><b>Release Method</b></label></td>
+                <td><select id="ReleaseMethodedit" name="ReleaseMethodedit">
+                        <option value="releasemethodempty" disabled>Selected Release Method</option>
+                        <option value="RapidRelease" <?php if($releaseMethod1=='RapidRelease') echo 'selected';?>>Rapid
+                            Release</option>
+                        <option value="FullPartRelease" <?php if($releaseMethod1=='FullPartRelease') echo 'selected';?>>
+                            Full Part Release</option>
+                        <!-- <option value="MQUAL"  <?php if($releaseMethod1=='MQUAL') echo 'selected';?>>MQUAL</option>	 -->
+                        <option value="N/A" <?php if($releaseMethod1=='N/A') echo 'selected';?>>Not Applicable</option>
+
+                    </select></td>
+
+                <td><label><b>Project Type</b></label></td>
+
+                <?php
+						$sql = "Select Project_Type FROM Projecttype ORDER BY Project_Type ASC";
 						$result = mysqli_query($con,$sql);
 						
 						if(mysqli_num_rows($result)!=0){ 
@@ -118,9 +129,10 @@ else {
 						}
 						echo  $output."</select></td>";
 					?>
-					</tr>
-					<tr><td><label><b>OSPI TE :</b></label></td>
-					<?php
+            </tr>
+            <tr>
+                <td><label><b>OSPI TE :</b></label></td>
+                <?php
 						$sql = "Select OSPI_Test_Engineer FROM testengineer";
 						$result = mysqli_query($con,$sql);
 						
@@ -139,8 +151,8 @@ else {
 						}    
 						echo  $output."</select></td>";
 					?>
-					<td><label><b>OSPI Support TE :</b></label></td>
-					<?php
+                <td><label><b>OSPI Support TE :</b></label></td>
+                <?php
 						$sql = "Select OSPI_Test_Engineer FROM testengineer";
 						$result = mysqli_query($con,$sql);
 						
@@ -166,12 +178,13 @@ else {
 						}
 						echo  $output."</select><td>";
 					?>
-					</tr>
-					<tr>
-					   <td> <label><b>Primary TE</b></td>
-						<td></label><input type="text" value="<?php echo $primTE; ?>" id="PrimaryTEedit"></input> </td>
-					<td><label><b>Device ID</b></label></td>
-					<?php
+            </tr>
+            <tr>
+                <td> <label><b>Primary TE</b></td>
+                <td>
+    </label><input type="text" value="<?php echo $primTE; ?>" id="PrimaryTEedit"></input> </td>
+    <td><label><b>Device ID</b></label></td>
+    <?php
 						$sql = "Select Device_ID FROM products Order By Device_ID";
 						$result = mysqli_query($con,$sql);
 						
@@ -189,140 +202,150 @@ else {
 						}
 						echo  $output."</select><td>";
 					?>
-					</tr>
-					<tr><td><label><b>Project Status</b></label></td>
-					<td><select id="ProjectStatusedit"  name="statusproject1">  
-					<option value="SelectFirst" disabled >Selected Project Status</option>
-					<option value="Ongoing"  <?php if($Status1=='Ongoing') echo 'selected';?>>Ongoing</option>
-					<option value="Incoming" <?php if($Status1=='Incoming') echo 'selected';?>>Incoming</option>
-					<option value="Hold" <?php if($Status1=='Hold') echo 'selected';?>>On Hold</option>
-					<option value="Canceled" <?php if($Status1=='Canceled') echo 'selected';?>>Canceled</option>					
-					<option value="Completed" <?php if($Status1=='Completed') echo 'selected';?>>Completed</option>					
-					</select></td>
-					<td><label><b>Priority #</b></label></td>
-					<td><input type="text" id="Priorityedit" value="<?php echo $priority; ?>"></input></td>
-					</tr>
-					
-					<tr>
-						<td><label><b>Tester</b></label></td>
-						<td><input type="text" id="testeredit" value="<?php echo $tester; ?>"></input></td>
-						<td><label><b>Package</b></label></td>
-						<td><input type="text"  id="Devicepackageedit" value="<?php echo $package; ?>"></input></td>
-					</tr>
+    </tr>
+    <tr>
+        <td><label><b>Project Status</b></label></td>
+        <td><select id="ProjectStatusedit" name="statusproject1">
+                <option value="SelectFirst" disabled>Selected Project Status</option>
+                <option value="Ongoing" <?php if($Status1=='Ongoing') echo 'selected';?>>Ongoing</option>
+                <option value="Incoming" <?php if($Status1=='Incoming') echo 'selected';?>>Incoming</option>
+                <option value="Hold" <?php if($Status1=='Hold') echo 'selected';?>>On Hold</option>
+                <option value="Canceled" <?php if($Status1=='Canceled') echo 'selected';?>>Canceled</option>
+                <option value="Completed" <?php if($Status1=='Completed') echo 'selected';?>>Completed</option>
+            </select></td>
+        <td><label><b>Priority #</b></label></td>
+        <td><input type="text" id="Priorityedit" value="<?php echo $priority; ?>"></input></td>
+    </tr>
+
+    <tr>
+        <td><label><b>Tester</b></label></td>
+        <td><input type="text" id="testeredit" value="<?php echo $tester; ?>"></input></td>
+        <td><label><b>Package</b></label></td>
+        <td><input type="text" id="Devicepackageedit" value="<?php echo $package; ?>"></input></td>
+    </tr>
 
 
-					<tr>
-						<td><label><b>Handler/Prober</b></label></td>
-						<td><input type="text" id="handleredit" value='<?php echo $handler; ?>'></td>
+    <tr>
+        <td><label><b>Handler/Prober</b></label></td>
+        <td><input type="text" id="handleredit" value='<?php echo $handler; ?>'></td>
 
-						<td><label><b>No of Sites</b></label></td>
-						<td><input type="number" id="noofsitesedit"  value='<?php echo $noofsites; ?>'></td>
-					</tr>
+        <td><label><b>No of Sites</b></label></td>
+        <td><input type="number" id="noofsitesedit" value='<?php echo $noofsites; ?>'></td>
+    </tr>
 
-					<tr>
-						<td><label><b>OSPI PE</b></label></td>
-						<td><input type="text" id="OSPI_PEedit" value="<?php echo $OSPIPE; ?>"></td>
-					</tr>
-				
-				</table>
-				
-						
-				<br>
-				<br>
-				
-				<table table class="table table-striped">
-				    <thead><tr><center>Project Approve/Release Dates</center></tr></thead>
-					<tbody>
-						<tr>
-							<td>PRP Date</td>
-							<td><input type="date"  id="prpdateedit" value="<?php echo $prpdate; ?>" ></input></td>
-						</tr>
-						<tr>
-							<td><label><b>Devt Start Date</b></label></td>
-							<td><input id="devtstartdateedit"type="date"  value="<?php echo $devtstartdate; ?>"></input> </td>
-							<td><label><b>Qual Start Date</b></label></td>
-							<td><input id="qualstartdateedit" type="date"  value="<?php echo $qualstartdate; ?>"></input> </td>
-						</tr>
-						
-						<tr>
-							<td><label><b>CAB Date</b></label></td>
-							<td><input id="cabdateedit" type="date"  value="<?php echo $cabdate; ?>"></input> </td>
+    <tr>
+        <td><label><b>OSPI PE</b></label></td>
+        <td><input type="text" id="OSPI_PEedit" value="<?php echo $OSPIPE; ?>"></td>
+    </tr>
 
-							<td><label><b>CAB Approved Date</b></label></td>
-							<td><input type="date"  id="cabapprovedateedit"  value="<?php echo $cabapprovedate; ?>"></input> </td>
+    </table>
 
 
-							
-						</tr>
+    <br>
+    <br>
+
+    <table table class="table table-striped">
+        <thead>
+            <tr>
+                <center>Project Approve/Release Dates</center>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>PRP Date</td>
+                <td><input type="date" id="prpdateedit" value="<?php echo $prpdate; ?>"></input></td>
+            </tr>
+            <tr>
+                <td><label><b>Devt Start Date</b></label></td>
+                <td><input id="devtstartdateedit" type="date" value="<?php echo $devtstartdate; ?>"></input> </td>
+                <td><label><b>Qual Start Date</b></label></td>
+                <td><input id="qualstartdateedit" type="date" value="<?php echo $qualstartdate; ?>"></input> </td>
+            </tr>
+
+            <tr>
+                <td><label><b>CAB Date</b></label></td>
+                <td><input id="cabdateedit" type="date" value="<?php echo $cabdate; ?>"></input> </td>
+
+                <td><label><b>CAB Approved Date</b></label></td>
+                <td><input type="date" id="cabapprovedateedit" value="<?php echo $cabapprovedate; ?>"></input> </td>
 
 
-						<tr>
-							<td><label><b>CAB Approved? </b></label></td>
-							<td>
-								<select id='cabapprovededit'>
-									<option value=''>Select</option>
-									<option value='yes' <?php if($cabapproved=='yes'){ echo 'selected';}?>>Yes</option>
-									<option value='no' <?php if($cabapproved=='no'){ echo 'selected';}?>>No</option>
-								</select>
-							</td>
 
-							<td><label><b>ECO Submitted</b></label></td>
-							<td><input id="ecosubmitteddateedit" type="date"  value="<?php echo $ecosubmitteddate; ?>"></input></td>
-						</tr>
-						
-						<tr>
-							<td><label><b>ECO Released</b></label></td>
-							<td><input id="ecoreleasedddateedit" type="date"  value="<?php echo $ecoapproveddate; ?>"></input> </td>
-							<td><label><b>CAB Number </b></label></td>
-							<td><input type="text" id='cabnumberedit' value='<?php echo $cabnumber; ?>'></input> </td>
-						</tr>
-						
-					 
-					
-					
-					</tbody>
-					
-					
-			
-					
-				</table>	
-					
-				
-				<table table class="table table-striped" >
-					<thead><tr><center>Project Timeline</center></tr></thead>
-					<tbody>
-						<tr>
-							<td><label><b>Devt Cycle Time</b></label></td>
-							<td><input type="text" class="cycletime" value="<?php echo$devtcycletime; ?>" readonly></input> </td>
-							<td><label><b>Qual Cycle Time</b></label></td>
-							<td><input type="text" class="cycletime" value="<?php echo$qualcycletime; ?>" readonly></input> </td>
-						</tr>
-						
-						<tr>
-							<td><label><b>ECO Submit Cycle Time</b></label></td>
-							<td><input type="text" class="cycletime" value="<?php echo$ecosubmitcycletime; ?>" readonly></input> </td>
-							<td><label><b>ECO Approve Cycle Time</b></label></td>
-							<td><input type="text" class="cycletime" value="<?php echo$ecoapprovecycletime; ?>" readonly></input></td>
-						</tr>
-						
-						<tr>
-							<td><label><b>Post Release Cycle Tim</b></label></td>
-							<td><input type="text" class="cycletime"></input> </td>
-							<td><label><b>Overall Cycle Time </b></label></td>
-							<td><input type="text" class="cycletime"></input> </td>
-						</tr>
-					</tbody>
-				</table>
-				
-					
+            </tr>
+
+
+            <tr>
+                <td><label><b>CAB Approved? </b></label></td>
+                <td>
+                    <select id='cabapprovededit'>
+                        <option value=''>Select</option>
+                        <option value='yes' <?php if($cabapproved=='yes'){ echo 'selected';}?>>Yes</option>
+                        <option value='no' <?php if($cabapproved=='no'){ echo 'selected';}?>>No</option>
+                    </select>
+                </td>
+
+                <td><label><b>ECO Submitted</b></label></td>
+                <td><input id="ecosubmitteddateedit" type="date" value="<?php echo $ecosubmitteddate; ?>"></input></td>
+            </tr>
+
+            <tr>
+                <td><label><b>ECO Released</b></label></td>
+                <td><input id="ecoreleasedddateedit" type="date" value="<?php echo $ecoapproveddate; ?>"></input> </td>
+                <td><label><b>CAB Number </b></label></td>
+                <td><input type="text" id='cabnumberedit' value='<?php echo $cabnumber; ?>'></input> </td>
+            </tr>
+
+
+
+
+        </tbody>
+
+
+
+
+    </table>
+
+
+    <table table class="table table-striped">
+        <thead>
+            <tr>
+                <center>Project Timeline</center>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><label><b>Devt Cycle Time</b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$devtcycletime; ?>" readonly></input> </td>
+                <td><label><b>Qual Cycle Time</b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$qualcycletime; ?>" readonly></input> </td>
+            </tr>
+
+            <tr>
+                <td><label><b>ECO Submit Cycle Time</b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$ecosubmitcycletime; ?>" readonly></input>
+                </td>
+                <td><label><b>ECO Approve Cycle Time</b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$ecoapprovecycletime; ?>" readonly></input>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label><b>Post Release Cycle Tim</b></label></td>
+                <td><input type="text" class="cycletime"></input> </td>
+                <td><label><b>Overall Cycle Time </b></label></td>
+                <td><input type="text" class="cycletime"></input> </td>
+            </tr>
+        </tbody>
+    </table>
+
+
 </div>
 <script>
-
-	CKEDITOR.replace( 'BusinessCase1',CKEDITOR.editorConfig );
+CKEDITOR.replace('BusinessCase1', CKEDITOR.editorConfig);
 /*disable because causing error in iansprojectviewer*/
-	/*$('.date').datepicker({
-		changeMonth: true,
-			changeYear: true
-	});*/
+/*$('.date').datepicker({
+	changeMonth: true,
+		changeYear: true
+});*/
 </script>
 </script>
