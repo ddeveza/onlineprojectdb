@@ -212,6 +212,9 @@ const ProjectDates = () => {
   };
   return (
     <div style={{ margin: "auto", padding: "0 20px 0 20px" }}>
+      <div>
+        <small>*Note: hover for more details in each project phase</small>
+      </div>
       <input type="range" list="tickmarks" min={0} max={6} step={1} value={min} onChange={(e) => handleChange(e)} style={{ cursor: "pointer" }} />
       <datalist id="tickmarks">
         <option value="0" />
@@ -222,15 +225,31 @@ const ProjectDates = () => {
         <option value="5" />
         <option value="6" />
       </datalist>
+
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", textAlign: "center" }}>
-        <div style={{ width: "60px" }}>Incoming</div>
-        <div style={{ width: "60px", alignItems: "end" }}>Test Package Received</div>
-        <div style={{ width: "60px" }}>Bin1(Full Sites)</div>
-        <div style={{ width: "60px" }}>Qualification Completed</div>
-        <div style={{ width: "60px" }}>Cab Approved Date</div>
-        <div style={{ width: "60px" }}>ECO Submitted</div>
-        <div style={{ width: "60px" }}>ECO Released</div>
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Incoming Stage if test package is not received / completed">
+          Incoming
+        </div>
+        <div style={{ width: "60px", alignItems: "end" }} data-toggle="tooltip" data-placement="top" title="Test Packaged is received in OSPI (LB,Sockets, TP etc....)">
+          Test Package Received
+        </div>
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Bin1 Repeataiblity is OK in ALL Sites">
+          Bin1(Full Sites)
+        </div>
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Qualification Data is completed and all issues are resolved.(XCorr,GRR,LB Compliance etc)">
+          Qualification Completed
+        </div>
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Cab is presented and approved.">
+          Cab Approved Date
+        </div>
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="ECO is under approval status in Agile.(TP, Adding OSPI Location etc...)">
+          ECO Submitted
+        </div>
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="ECO  is published and implemented.">
+          ECO Released
+        </div>
       </div>
+
       <div style={dateStyle}>
         <h3>Dates:</h3>
         <WeeklyDates title={"Test Packaged Received"} toggle={projectDates.rpDate.toggleProgress} divStyle={divStyle} statusDateName="rpDate" statusDate={`${projectDates.rpDate.completedDate}`} onDateChangeHandler={onDateChangeHandler} />
