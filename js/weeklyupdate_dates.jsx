@@ -213,7 +213,9 @@ const ProjectDates = () => {
   return (
     <div style={{ margin: "auto", padding: "0 20px 0 20px" }}>
       <div>
-        <small>*Note: hover for more details in each project phase</small>
+        <small>
+          <u>*Note: Hover on each project phase for more info or details.</u>
+        </small>
       </div>
       <input type="range" list="tickmarks" min={0} max={6} step={1} value={min} onChange={(e) => handleChange(e)} style={{ cursor: "pointer" }} />
       <datalist id="tickmarks">
@@ -227,25 +229,25 @@ const ProjectDates = () => {
       </datalist>
 
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", textAlign: "center" }}>
-        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Incoming Stage if test package is not received / completed">
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Incoming stage is wherein waiting for the test package to arrive in OSPI.">
           Incoming
         </div>
-        <div style={{ width: "60px", alignItems: "end" }} data-toggle="tooltip" data-placement="top" title="Test Packaged is received in OSPI (LB,Sockets, TP etc....)">
+        <div style={{ width: "60px", alignItems: "end" }} data-toggle="tooltip" data-placement="top" title="Test Package is already received in OSPI (LB,Sockets, TP and etc....)">
           Test Package Received
         </div>
-        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Bin1 Repeataiblity is OK in ALL Sites">
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Bin1 repeatability is OK for ALL SITES (Test Acceptance Completed)">
           Bin1(Full Sites)
         </div>
-        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Qualification Data is completed and all issues are resolved.(XCorr,GRR,LB Compliance etc)">
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Qualification data is completed and all issues are resolved.(XCorr,GRR,LB Compliance  and etc...)">
           Qualification Completed
         </div>
-        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="Cab is presented and approved.">
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="CAB info book is presented and approved.">
           Cab Approved Date
         </div>
-        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="ECO is under approval status in Agile.(TP, Adding OSPI Location etc...)">
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="ECO is under 'FOR APPROVAL' status in Agile.(TP release, Adding OSPI  as Test Location and etc...)">
           ECO Submitted
         </div>
-        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="ECO  is published and implemented.">
+        <div style={{ width: "60px" }} data-toggle="tooltip" data-placement="top" title="ECO  is published and implemented status in agile.">
           ECO Released
         </div>
       </div>

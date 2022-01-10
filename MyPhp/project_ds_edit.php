@@ -4,7 +4,7 @@ session_start();
 	global $con;
 	
 	include 'D:\xampp\htdocs\dmsg\config\config.php';
-	include '..\phpfunction\date.php';
+	
 	if(!$con){
 	echo "Database connect error".mysqli_error($con);
 	}
@@ -24,14 +24,10 @@ session_start();
 			$primTE= $row['Primary_Test_Engineer'];
 			$deviceID1 =$row['Device_ID']; 
 			$Status1 = $row['Project_Status'];
-			$devtstartdate = $row['Development_Start_Date'];
-			$devtcycletime = $row['Development_Cycle_Time'];
-			$qualstartdate = $row['Qualification_Start_Date'];
-			$qualcycletime = $row['Qualification_Cycle_Time'];
 			$cabdate = $row['CAB_Date'];
 			$ecosubmitteddate = $row['ECO_Submitted'];
 			$ecosubmitcycletime = $row['ECO_Submit_Cycle_Time'];
-			$ecoapproveddate= $row['ECO_Released'];
+			$ecoreleasedate= $row['ECO_Released'];
 			$ecoapprovecycletime = $row['ECO_Approve_Cycle_Time'];
 		    $priority = $row['Priority'];
 			$tester = $row['tester'];
@@ -43,35 +39,35 @@ session_start();
 			$prpdate = $row['PRP_Date'];
 			$handler = $row['handler'];
 			$noofsites = $row['sites'];
+            $tprreceiveddate = $row['TestItemReceived_Date'];
+            $bin1datecompleted=$row['Bin1_Date'];
+            $qualdatecompleted=$row['QualCompletion_Date'];
+
 	}
 
-
-	
-
-
-
-if ($prpdate=='0000-00-00' || $prpdate == Null) {
-	
-
-	$devtcycletime = dateDiffInDays($qualstartdate,date('Y-m-d')); //get the difference between today - qual start date
-	$qualcycletime = 0; // 0 because no prp date yet so equal cycle time is increasing.
-
-}elseif ($qualstartdate=='0000-00-00' || $qualstartdate  == NUll){
-	
-	$devtcycletime = 0; //get the difference between today - qual start date
-	$qualcycletime = 0;
-}
-else {
-	
-	$devtcycletime = max (0, MinDate($prpdate,$cabapprovedate) - Day($qualstartdate) );
-
-	$qualcycletime = max(0, Day($cabapprovedate) -  MaxDate($prpdate,$qualstartdate));
+    
+    /* Get Cycle Time 
+        1. Test Acceptance Cycle Time  = Bin1 Date - Test Packaged Received if MQUAL = 0
+        2. Qualification Cycle Time =  Qual Completed - Bin1 Compelted 
+        3. TP Release Cycle Time =  Cab approved Date -  ECO Release Date
+    
+    */
+function getNoofDays ($date1 , $date2) {
+    if ($date1 == null || $date2 == null || $date1 == '0000-00-00'|| $date2 == '0000-00-00') {
+        return 0;
+    }else {
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        $noOfDays = ($date2 - $date1)/ (3600*24) ; 
+        return floor($noOfDays);
+    }
+    
 }
 
-
-
-
-
+$testacceptance = getNoofDays($tprreceiveddate,$bin1datecompleted);
+$qualcycletime  = getNoofDays($bin1datecompleted,$qualdatecompleted);
+$TPReleaseCycleTime = getNoofDays($cabapprovedate,$ecoreleasedate);
+$overallcycletime =  getNoofDays($tprreceiveddate,$ecoreleasedate);
 
 ?>
 
@@ -252,50 +248,31 @@ else {
         </thead>
         <tbody>
             <tr>
-                <td>PRP Date</td>
-                <td><input type="date" id="prpdateedit" value="<?php echo $prpdate; ?>"></input></td>
+                <td>Test Package Received:</td>
+                <td><input type="date" id="tprdateedit" value="<?php echo $tprreceiveddate; ?>"></input></td>
+                <td><label><b>Bin 1 Date:</b></label></td>
+                <td><input id="bin1dateedit" type="date" value="<?php echo $bin1datecompleted; ?>"></input> </td>
+
             </tr>
             <tr>
-                <td><label><b>Devt Start Date</b></label></td>
-                <td><input id="devtstartdateedit" type="date" value="<?php echo $devtstartdate; ?>"></input> </td>
-                <td><label><b>Qual Start Date</b></label></td>
-                <td><input id="qualstartdateedit" type="date" value="<?php echo $qualstartdate; ?>"></input> </td>
+                <td><label><b>Qualification Date Completed:</b></label></td>
+                <td><input id="qualcompletededit" type="date" value="<?php echo $qualdatecompleted; ?>"></input> </td>
             </tr>
 
             <tr>
-                <td><label><b>CAB Date</b></label></td>
-                <td><input id="cabdateedit" type="date" value="<?php echo $cabdate; ?>"></input> </td>
-
                 <td><label><b>CAB Approved Date</b></label></td>
                 <td><input type="date" id="cabapprovedateedit" value="<?php echo $cabapprovedate; ?>"></input> </td>
-
-
-
-            </tr>
-
-
-            <tr>
-                <td><label><b>CAB Approved? </b></label></td>
-                <td>
-                    <select id='cabapprovededit'>
-                        <option value=''>Select</option>
-                        <option value='yes' <?php if($cabapproved=='yes'){ echo 'selected';}?>>Yes</option>
-                        <option value='no' <?php if($cabapproved=='no'){ echo 'selected';}?>>No</option>
-                    </select>
-                </td>
-
-                <td><label><b>ECO Submitted</b></label></td>
-                <td><input id="ecosubmitteddateedit" type="date" value="<?php echo $ecosubmitteddate; ?>"></input></td>
-            </tr>
-
-            <tr>
-                <td><label><b>ECO Released</b></label></td>
-                <td><input id="ecoreleasedddateedit" type="date" value="<?php echo $ecoapproveddate; ?>"></input> </td>
                 <td><label><b>CAB Number </b></label></td>
                 <td><input type="text" id='cabnumberedit' value='<?php echo $cabnumber; ?>'></input> </td>
             </tr>
 
 
+            <tr>
+                <td><label><b>ECO Submitted</b></label></td>
+                <td><input id="ecosubmitteddateedit" type="date" value="<?php echo $ecosubmitteddate; ?>"></input></td>
+                <td><label><b>ECO Released</b></label></td>
+                <td><input id="ecoreleasedddateedit" type="date" value="<?php echo $ecoreleasedate; ?>"></input> </td>
+            </tr>
 
 
         </tbody>
@@ -309,32 +286,33 @@ else {
     <table table class="table table-striped">
         <thead>
             <tr>
-                <center>Project Timeline</center>
+                <center>Project Cycle Time (Days)</center>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td><label><b>Devt Cycle Time</b></label></td>
-                <td><input type="text" class="cycletime" value="<?php echo$devtcycletime; ?>" readonly></input> </td>
-                <td><label><b>Qual Cycle Time</b></label></td>
+                <td><label><b>Test Acceptance Cycle Time: </b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$testacceptance; ?>" readonly></input> </td>
+                <td><label><b>Qualification Cycle Time: </b></label></td>
                 <td><input type="text" class="cycletime" value="<?php echo$qualcycletime; ?>" readonly></input> </td>
             </tr>
 
             <tr>
-                <td><label><b>ECO Submit Cycle Time</b></label></td>
-                <td><input type="text" class="cycletime" value="<?php echo$ecosubmitcycletime; ?>" readonly></input>
+
+                <td><label><b>TP Release Cycle Time: </b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$TPReleaseCycleTime; ?>" readonly></input>
                 </td>
-                <td><label><b>ECO Approve Cycle Time</b></label></td>
-                <td><input type="text" class="cycletime" value="<?php echo$ecoapprovecycletime; ?>" readonly></input>
+                <td><label><b>Overall Project Cycle Time: </b></label></td>
+                <td><input type="text" class="cycletime" value="<?php echo$overallcycletime; ?>" readonly></input>
                 </td>
             </tr>
 
-            <tr>
+            <!--    <tr>
                 <td><label><b>Post Release Cycle Tim</b></label></td>
                 <td><input type="text" class="cycletime"></input> </td>
                 <td><label><b>Overall Cycle Time </b></label></td>
                 <td><input type="text" class="cycletime"></input> </td>
-            </tr>
+            </tr> -->
         </tbody>
     </table>
 

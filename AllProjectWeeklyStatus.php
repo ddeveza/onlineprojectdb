@@ -211,7 +211,7 @@
 	  <div class="modal-dialog modal-dialog-centered modal-lg" role="document" >
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle" style=""><center>Weekly Update</center></h5>
+	        <h5 class="modal-title" id="exampleModalLongTitle" ><center>Weekly Update</center></h5>
 	       
 	      </div>
 	      <div class="modal-body">

@@ -261,7 +261,7 @@
                                 <br>
                                 <br>
 
-                                <table table class="table table-striped">
+                                <!--  <table table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <center>Project Approve/Release Dates</center>
@@ -320,7 +320,7 @@
 
 
 
-                                </table>
+                                </table> -->
 
 
 
@@ -542,15 +542,20 @@ $(document).on('click', '.update', function() {
     /*alert(handler);
     alert(noofsites);*/
     //get date value from datepicker
-    var devtstartdate = $('#devtstartdateedit').val();
+    //var devtstartdate = $('#devtstartdateedit').val();
     //var devtstartdate = $('#devtstartdate').datepicker('getDate');
-    var qualstartdate = $('#qualstartdateedit').val();
-    var cabdate = $('#cabdateedit').val();
+    //var qualstartdate = $('#qualstartdateedit').val();
+    //var cabdate = $('#cabdateedit').val();
     var cabapprovedate = $('#cabapprovedateedit').val();
-    var cabapproved = $('select#cabapprovededit').children("option:selected").val();
+    //var cabapproved = $('select#cabapprovededit').children("option:selected").val();
     var cabnumber = $('#cabnumberedit').val();
     var ecosubmitteddate = $('#ecosubmitteddateedit').val();
     var ecoreleasedddate = $('#ecoreleasedddateedit').val();
+
+    var tprdate = $('#tprdateedit').val(); // test package received data
+    var bin1date = $('#bin1dateedit').val();
+    var qualcompleteddate = $('#qualcompletededit').val();
+
 
 
 
@@ -571,9 +576,9 @@ $(document).on('click', '.update', function() {
     } else if (ProjectStatus == "projectstatusempty") {
         alert("Please Select Project Status!");
     } else {
-        if (ProjectStatus == "Completed" && (projtype == 'FT NPI' || projtype == 'WS NPI')) {
-            if (prpdate == "" || qualstartdate == "" || cabapprovedate == "" || cabdate == "" ||
-                ecosubmitteddate == "" || ecoreleasedddate == "") {
+        if (ProjectStatus == "Completed" && (projtype == 'FT NPI' || projtype == 'FT MQUAL' || projtype ==
+                'WS NPI' || projtype == 'WS MQUAL')) {
+            if (cabapprovedate == "" || ecosubmitteddate == "" || ecoreleasedddate == "") {
                 alert("Please complete dates prior project Completion!");
             } else {
                 $.ajax({
@@ -582,14 +587,11 @@ $(document).on('click', '.update', function() {
                     data: {
                         noofsites: noofsites,
                         handler: handler,
-                        prpdate: prpdate,
                         cabnumber: cabnumber,
                         cabapprovedate: cabapprovedate,
-                        cabapproved: cabapproved,
                         OSPIPE: OSPIPE,
                         ProjName: ProjName,
                         Unique: Unique,
-
                         businesscase: businesscase,
                         projtype: projtype,
                         OSPITE: OSPITE,
@@ -597,18 +599,17 @@ $(document).on('click', '.update', function() {
                         DeviceID: DeviceID,
                         ReleaseMethod: ReleaseMethod,
                         ProjectStatus: ProjectStatus,
-
-
                         tester: tester,
                         Devicepackage: Devicepackage,
                         PrimaryTE: PrimaryTE,
                         Priority: Priority,
-
-                        devtstartdate: devtstartdate,
-                        qualstartdate: qualstartdate,
-                        cabdate: cabdate,
                         ecosubmitteddate: ecosubmitteddate,
-                        ecoreleasedddate: ecoreleasedddate
+                        ecoreleasedddate: ecoreleasedddate,
+                        qualcompleteddate: qualcompleteddate,
+                        tprdate: tprdate,
+                        bin1date: bin1date
+
+
 
 
 
@@ -635,7 +636,7 @@ $(document).on('click', '.update', function() {
 
                         } else {
 
-                            console.log('Error');
+                            console.log(data);
                         }
 
 
@@ -650,10 +651,8 @@ $(document).on('click', '.update', function() {
                 data: {
                     noofsites: noofsites,
                     handler: handler,
-                    prpdate: prpdate,
                     cabnumber: cabnumber,
                     cabapprovedate: cabapprovedate,
-                    cabapproved: cabapproved,
                     OSPIPE: OSPIPE,
                     ProjName: ProjName,
                     Unique: Unique,
@@ -672,11 +671,13 @@ $(document).on('click', '.update', function() {
                     PrimaryTE: PrimaryTE,
                     Priority: Priority,
 
-                    devtstartdate: devtstartdate,
-                    qualstartdate: qualstartdate,
-                    cabdate: cabdate,
+
+
                     ecosubmitteddate: ecosubmitteddate,
-                    ecoreleasedddate: ecoreleasedddate
+                    ecoreleasedddate: ecoreleasedddate,
+                    qualcompleteddate: qualcompleteddate,
+                    tprdate: tprdate,
+                    bin1date: bin1date
 
 
 
@@ -702,7 +703,7 @@ $(document).on('click', '.update', function() {
 
                     } else {
 
-                        console.log('Error');
+                        console.log(data);
                     }
 
                 }
@@ -1067,7 +1068,7 @@ $(document).ready(function() {
                         } else if (data == 2) {
                             alert(
                                 "This is a Rapid Ralease Project. Please type of Change :"
-                                );
+                            );
                         }
                     }
                 });
