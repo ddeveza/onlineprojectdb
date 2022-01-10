@@ -224,10 +224,10 @@ const ProjectDates = () => {
       </datalist>
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", textAlign: "center" }}>
         <div style={{ width: "60px" }}>Incoming</div>
-        <div style={{ width: "60px", alignItems: "end" }}>Test Items Received</div>
-        <div style={{ width: "60px" }}>Bin1</div>
-        <div style={{ width: "60px" }}>Qual</div>
-        <div style={{ width: "60px" }}>Cab Date</div>
+        <div style={{ width: "60px", alignItems: "end" }}>Test Package Received</div>
+        <div style={{ width: "60px" }}>Bin1(Full Sites)</div>
+        <div style={{ width: "60px" }}>Qualification Completed</div>
+        <div style={{ width: "60px" }}>Cab Approved Date</div>
         <div style={{ width: "60px" }}>ECO Submitted</div>
         <div style={{ width: "60px" }}>ECO Released</div>
       </div>
