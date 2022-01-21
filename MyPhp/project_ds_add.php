@@ -14,11 +14,11 @@ $tester = mysqli_real_escape_string($con,$_POST['tester']);
 $Devicepackage = mysqli_real_escape_string($con,$_POST['Devicepackage']);
 $PrimaryTE = mysqli_real_escape_string($con,$_POST['PrimaryTE']);
 $Priority = mysqli_real_escape_string($con,$_POST['Priority']);
-$devtstartdate = mysqli_real_escape_string($con,$_POST['devtstartdate']);
+/* $devtstartdate = mysqli_real_escape_string($con,$_POST['devtstartdate']);
 $qualstartdate = mysqli_real_escape_string($con,$_POST['qualstartdate']);
 $cabdate = mysqli_real_escape_string($con,$_POST['cabdate']);
 $ecosubmitteddate = mysqli_real_escape_string($con,$_POST['ecosubmitteddate']);
-$ecoreleasedddate = mysqli_real_escape_string($con,$_POST['ecoreleasedddate']);
+$ecoreleasedddate = mysqli_real_escape_string($con,$_POST['ecoreleasedddate']); */
 $ProjName = mysqli_real_escape_string($con,$_POST['ProjectName']);
 $OSPI_PE = mysqli_real_escape_string($con,$_POST['OSPIPE']);
 
@@ -28,11 +28,11 @@ $noofsites = mysqli_real_escape_string($con,$_POST['noofsites']);
 
 
 
-
+/* 
 $prpdate = $_POST['prpdate'];
 $cabnumber = $_POST['cabnumber'];
 $cabapprovedate = $_POST['cabapprovedate'];
-$cabapproved = $_POST['cabapproved'];
+$cabapproved = $_POST['cabapproved']; */
 //$data = $RapidTypeofChange;
 
 if ($ReleaseMethod == 'RapidRelease') {
@@ -50,7 +50,7 @@ if ($ReleaseMethod == 'RapidRelease') {
 
 }
 //compute cycle time
-$date1=date_create($devtstartdate);
+/* $date1=date_create($devtstartdate);
 $date2=date_create(date('m/d/Y'));
 $diff=date_diff($date1,$date2);
 $devtcycletime = $diff->format("%a");
@@ -68,7 +68,7 @@ $ecosubmitcycletime = $diff->format("%a");
 $date1=date_create($ecoreleasedddate);
 $date2=date_create(date('m/d/Y'));
 $diff=date_diff($date1,$date2);
-$ecoapprovecycletime = $diff->format("%a");
+$ecoapprovecycletime = $diff->format("%a"); */
 
 
 $add_sql="
@@ -85,20 +85,10 @@ $add_sql="
 	package,
 	Primary_Test_Engineer,
 	Priority,
-	Development_Start_Date,
-	Development_Cycle_Time,
-	Qualification_Start_Date,
-	Qualification_Cycle_Time,
-	CAB_Date,
-	ECO_Submitted,
-	ECO_Submit_Cycle_Time,
-	ECO_Released,
-	ECO_Approve_Cycle_Time,
+	
+	
 	OSPI_PE,
-	CAB_Approved_Date,
-	CAB_Approved,
-	CAB_Number,
-	PRP_Date,
+
 	handler,
 	sites
 
@@ -118,20 +108,9 @@ $add_sql="
 	'$Devicepackage',
 	'$PrimaryTE',
 	'$Priority',
-	'$devtstartdate',
-	'$devtcycletime',
-	'$qualstartdate',
-	'$qualcycletime',
-	'$cabdate',
-	'$ecosubmitteddate',
-	'$ecosubmitcycletime',
-	'$ecoreleasedddate',
-	'$ecoapprovecycletime',
+	
 	'$OSPI_PE',
-	'$cabapprovedate',
-	'$cabapproved',
-	'$cabnumber',
-	'$prpdate',
+	
 	'$handler',
 	'$noofsites'
 

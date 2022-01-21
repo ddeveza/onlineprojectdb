@@ -131,7 +131,7 @@ $(document).ready(function(){
     padding: 10px 18px;
     float: left;
     width: auto;
-   // border: none;
+    border: none;
     display: block;
     outline: 1;
 	

@@ -970,17 +970,17 @@ $(document).ready(function() {
 
 
         //get date value from datepicker
-        var prpdate = $('#prpdate').val();
-        var devtstartdate = $('#devtstartdate').val();
-        //var devtstartdate = $('#devtstartdate').datepicker('getDate');
-        var qualstartdate = $('#qualstartdate').val();
-        var cabdate = $('#cabdate').val();
-        var ecosubmitteddate = $('#ecosubmitteddate').val();
-        var ecoreleasedddate = $('#ecoreleasedddate').val();
+        /*       var prpdate = $('#prpdate').val();
+              var devtstartdate = $('#devtstartdate').val();
+              //var devtstartdate = $('#devtstartdate').datepicker('getDate');
+              var qualstartdate = $('#qualstartdate').val();
+              var cabdate = $('#cabdate').val();
+              var ecosubmitteddate = $('#ecosubmitteddate').val();
+              var ecoreleasedddate = $('#ecoreleasedddate').val(); */
         var RapidValue = $('#RapidValue').val();
-        var cabapprovedate = $('#cabapprovedate').val();
-        var cabapproved = $('select#cabapproved').children("option:selected").val();
-        var cabnumber = $('#cabnumber').val();
+        /*  var cabapprovedate = $('#cabapprovedate').val();
+         var cabapproved = $('select#cabapproved').children("option:selected").val();
+         var cabnumber = $('#cabnumber').val(); */
 
 
 
@@ -1018,10 +1018,7 @@ $(document).ready(function() {
                     data: {
                         handler: handler,
                         noofsites: noofsites,
-                        prpdate: prpdate,
-                        cabnumber: cabnumber,
-                        cabapprovedate: cabapprovedate,
-                        cabapproved: cabapproved,
+
                         OSPIPE: OSPIPE,
                         ProjectName: ProjectName, //added projectname
                         RapidValue: RapidValue,
@@ -1039,11 +1036,7 @@ $(document).ready(function() {
                         PrimaryTE: PrimaryTE,
                         Priority: Priority,
 
-                        devtstartdate: devtstartdate,
-                        qualstartdate: qualstartdate,
-                        cabdate: cabdate,
-                        ecosubmitteddate: ecosubmitteddate,
-                        ecoreleasedddate: ecoreleasedddate
+
 
 
 
@@ -1085,10 +1078,8 @@ $(document).ready(function() {
 
                     handler: handler,
                     noofsites: noofsites,
-                    prpdate: prpdate,
-                    cabnumber: cabnumber,
-                    cabapprovedate: cabapprovedate,
-                    cabapproved: cabapproved,
+
+
                     OSPIPE: OSPIPE,
                     ProjectName: ProjectName, //added projectname
                     RapidValue: RapidValue,
@@ -1105,12 +1096,6 @@ $(document).ready(function() {
                     Devicepackage: Devicepackage,
                     PrimaryTE: PrimaryTE,
                     Priority: Priority,
-
-                    devtstartdate: devtstartdate,
-                    qualstartdate: qualstartdate,
-                    cabdate: cabdate,
-                    ecosubmitteddate: ecosubmitteddate,
-                    ecoreleasedddate: ecoreleasedddate
 
 
 
